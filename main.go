@@ -31,7 +31,7 @@ func hellohandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello!")
 }
 func main() {
-	fileserver := http.FileServer(http.Dir("/static"))
+	fileserver := http.FileServer(http.Dir("./static"))
 	http.Handle("/", fileserver)
 	http.HandleFunc("/form", formhandler)
 	http.HandleFunc("/hello", hellohandler)
