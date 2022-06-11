@@ -16,8 +16,8 @@ func formhandler(w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("email")
 	address := r.FormValue("address")
 	fmt.Fprintf(w, "Name =%s\n", name)
-	fmt.Fprintf(w, "Email=%s/n", email)
-	fmt.Fprintf(w, "Address=%s/n", address)
+	fmt.Fprintf(w, "Email=%s\n", email)
+	fmt.Fprintf(w, "Address=%s\n", address)
 }
 func hellohandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/hello" {
@@ -31,12 +31,12 @@ func hellohandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello!")
 }
 func main() {
-	fileserver := http.FileServer(http.Dir("./static"))
+	fileserver := http.FileServer(http.Dir("/static"))
 	http.Handle("/", fileserver)
-	http.HandleFunc("/hello", hellohandler)
 	http.HandleFunc("/form", formhandler)
+	http.HandleFunc("/hello", hellohandler)
 	fmt.Println("Server Started at Port 3000")
-	if err := http.ListenAndServe("3000", nil); err != nil {
+	if err := http.ListenAndServe(":3000", nil); err != nil {
 		log.Fatal(err)
 	}
 }
